@@ -1,0 +1,24 @@
+name : AddNote
+graph: 
+  Default: 
+    events:
+      - InputChanged : Default
+      - SaveClicked : _ValidatingInput
+  _ValidatingInput:
+    effects:
+      - ValidateInput:
+          events:
+              - ValidationSuccess : _SavingUser
+              - ValidationFailed : EmptyFields
+  EmptyFields:
+    events:
+      - EmptyTitle : Default
+  _SavingUser:
+      effects:
+        - SaveUser:
+            events:
+              - UserSaved: _GoToHomeScreen
+  _GoToHomeScreen:
+      effects:
+        - GoToHomeScreen:
+            events: []
