@@ -8,17 +8,17 @@ graph:
     effects:
       - ValidateInput:
           events:
-              - ValidationSuccess : _SavingUser
-              - ValidationFailed : EmptyFields
-  EmptyFields:
+            - ValidationFailed : InvalidInput
+            - ValidationSuccess : _SavingNote
+  InvalidInput:
     events:
-      - EmptyTitle : Default
-  _SavingUser:
-      effects:
-        - SaveUser:
-            events:
-              - UserSaved: _GoToHomeScreen
-  _GoToHomeScreen:
-      effects:
-        - GoToHomeScreen:
-            events: []
+      - InvalidFields : Default
+  _SavingNote:
+    effects:
+      - SaveNote:
+          events: 
+            - NoteSaved: _GoToDetailScreen
+  _GoToDetailScreen:
+    effects:
+      - GoToDetailScreen:
+          events: []

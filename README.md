@@ -12,4 +12,4 @@ Note app using Mobius and unit testing
 
 ### View Note Screen
 
-<p align="center"><img src="StateDiagram/ViewNote.png" height="400"></p>
+<p align="center"><img src="StateDiagram/ViewNote.png" height="200"></p>
