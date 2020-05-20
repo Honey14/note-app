@@ -1,0 +1,10 @@
+name : ViewNote
+graph:
+  FetchingNote:
+      effects:
+        - LoadNote:
+            events:
+              - NoteLoaded : DisplayNote
+  DisplayNote:
+      events: []
+

@@ -9,3 +9,7 @@ Note app using Mobius and unit testing
 ### Add Note Screen
 
 <p align="center"><img src="StateDiagram/AddNote.png" height="400"></p>
+
+### View Note Screen
+
+<p align="center"><img scr="StateDiagram/ViewNote.png" height="400"></p>
