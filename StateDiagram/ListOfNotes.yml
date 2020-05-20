@@ -1,0 +1,23 @@
+name: Notes
+graph:
+  GetList:
+    events: 
+      - HasNotes : NotesRetrieved
+      - NoNotes : NoNotesAvailable
+  NotesRetrieved:
+    events :
+      - SelectNote : _GoToDetailScreen
+      - AddClicked : _GoToAddNoteScreen
+  NoNotesAvailable:
+    events :
+      - AddClicked : _GoToAddNoteScreen
+  _GoToDetailScreen:
+    effects:
+      - GoToDetailScreen:
+      - events: []
+  _GoToAddNoteScreen:
+    effects:
+      - GoToAddNoteScreen:
+      - events: []
+
+  
