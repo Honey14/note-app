@@ -1,5 +1,6 @@
 # Notes App
-Note app using Mobius and unit testing
+### User can create and view notes
+Note app using Mobius and unit testing 
 
 ## State Diagram
 ### List of notes screen
