@@ -3,7 +3,7 @@ package honey.noteapp.listOfNotes
 import com.spotify.mobius.test.NextMatchers.*
 import com.spotify.mobius.test.UpdateSpec
 import com.spotify.mobius.test.UpdateSpec.assertThatNext
-import honey.noteapp.listOfNotes.NotesEffect.GoToAddScreen
+import honey.noteapp.listOfNotes.NotesEffect.*
 import org.junit.Test
 
 class NotesUpdateTest {
@@ -50,6 +50,19 @@ class NotesUpdateTest {
                 assertThatNext(
                     hasNoModel(),
                     hasEffects(GoToAddScreen as NotesEffect)
+                )
+            )
+    }
+
+    @Test
+    fun `when a note is selected, then go to Detail screen`() {
+        spec
+            .given(defaultModel)
+            .whenEvent(SelectNote)
+            .then(
+                assertThatNext(
+                    hasNoModel(),
+                    hasEffects(GoToDetailScreen as NotesEffect)
                 )
             )
     }

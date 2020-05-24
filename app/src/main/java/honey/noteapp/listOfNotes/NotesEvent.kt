@@ -7,3 +7,5 @@ data class HasNotes(val notes: List<NotesModel>) : NotesEvent()
 object NoNotes : NotesEvent()
 
 object AddClicked : NotesEvent()
+
+object SelectNote : NotesEvent()
