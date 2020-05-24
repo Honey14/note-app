@@ -36,7 +36,7 @@ class NotesUpdateTest {
             .whenEvent(NoNotes)
             .then(
                 assertThatNext(
-                    hasModel(defaultModel.hasNoNotes(hasNotes = false))
+                    hasModel(defaultModel.noNotesAvailable(hasNotes = false))
                 )
             )
     }

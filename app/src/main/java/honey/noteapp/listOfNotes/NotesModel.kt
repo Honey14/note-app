@@ -14,7 +14,7 @@ data class NotesModel(
         return copy(hasNotes = hasNotes)
     }
 
-    fun hasNoNotes(hasNotes: Boolean): NotesModel {
+    fun noNotesAvailable(hasNotes: Boolean): NotesModel {
         return copy(hasNotes = hasNotes)
     }
 }
