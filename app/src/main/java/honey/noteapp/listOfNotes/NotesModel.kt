@@ -1,4 +1,16 @@
 package honey.noteapp.listOfNotes
 
-class NotesModel {
+data class NotesModel(
+    val title: String,
+    val description: String,
+    val hasNotes: Boolean
+) {
+
+    companion object {
+        fun create(): NotesModel = NotesModel(title = "", description = "", hasNotes = false)
+    }
+
+    fun hasNotesInList(hasNotes: Boolean): NotesModel {
+        return copy(hasNotes = hasNotes)
+    }
 }

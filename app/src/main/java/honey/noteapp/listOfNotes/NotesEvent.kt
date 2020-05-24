@@ -1,4 +1,5 @@
 package honey.noteapp.listOfNotes
 
-class NotesEvent {
-}
+sealed class NotesEvent
+
+data class HasNotes(val notes: List<NotesModel>) : NotesEvent()
