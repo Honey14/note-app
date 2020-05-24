@@ -12,6 +12,7 @@ class NotesUpdate : Update<NotesModel, NotesEvent, NotesEffect> {
     ): Next<NotesModel, NotesEffect> {
         return when (event) {
             is HasNotes -> next(model.hasNotesInList(hasNotes = true))
+            is NoNotes -> next(model.hasNoNotes(hasNotes = false))
         }
     }
 }

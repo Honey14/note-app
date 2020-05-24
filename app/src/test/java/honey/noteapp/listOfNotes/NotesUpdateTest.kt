@@ -14,9 +14,9 @@ class NotesUpdateTest {
     @Test
     fun `when list of notes is fetched, then user has notes`() {
         val notes = listOf(
-            NotesModel("title1", "description1",true),
-            NotesModel("title2", "description2",true),
-            NotesModel("title3", "description3",true)
+            NotesModel("title1", "description1", true),
+            NotesModel("title2", "description2", true),
+            NotesModel("title3", "description3", true)
         )
         spec
             .given(defaultModel)
@@ -27,6 +27,17 @@ class NotesUpdateTest {
                     hasNoEffects()
                 )
             )
+    }
 
+    @Test
+    fun `when list of notes is fetched, then user gets no notes`() {
+        spec
+            .given(defaultModel)
+            .whenEvent(NoNotes)
+            .then(
+                assertThatNext(
+                    hasModel(defaultModel.hasNoNotes(hasNotes = false))
+                )
+            )
     }
 }
