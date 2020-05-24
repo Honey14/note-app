@@ -10,7 +10,7 @@ data class NotesModel(
         fun create(): NotesModel = NotesModel(title = "", description = "", hasNotes = false)
     }
 
-    fun hasNotesInList(hasNotes: Boolean): NotesModel {
+    fun notesRetrieved(hasNotes: Boolean): NotesModel {
         return copy(hasNotes = hasNotes)
     }
 

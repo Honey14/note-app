@@ -23,7 +23,7 @@ class NotesUpdateTest {
             .whenEvent(HasNotes(notes))
             .then(
                 assertThatNext(
-                    hasModel(defaultModel.hasNotesInList(hasNotes = true)),
+                    hasModel(defaultModel.notesRetrieved(hasNotes = true)),
                     hasNoEffects()
                 )
             )
