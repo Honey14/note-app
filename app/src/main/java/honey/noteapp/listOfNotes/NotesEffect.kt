@@ -1,4 +1,4 @@
 package honey.noteapp.listOfNotes
 
-class ListModel {
+class NotesEffect {
 }
