@@ -1,9 +1,9 @@
 package honey.noteapp.listOfNotes
 
-import com.spotify.mobius.test.NextMatchers.hasModel
-import com.spotify.mobius.test.NextMatchers.hasNoEffects
+import com.spotify.mobius.test.NextMatchers.*
 import com.spotify.mobius.test.UpdateSpec
 import com.spotify.mobius.test.UpdateSpec.assertThatNext
+import honey.noteapp.listOfNotes.NotesEffect.GoToAddScreen
 import org.junit.Test
 
 class NotesUpdateTest {
@@ -37,6 +37,19 @@ class NotesUpdateTest {
             .then(
                 assertThatNext(
                     hasModel(defaultModel.hasNoNotes(hasNotes = false))
+                )
+            )
+    }
+
+    @Test
+    fun `when add clicked, go to AddNote screen`() {
+        spec
+            .given(defaultModel)
+            .whenEvent(AddClicked)
+            .then(
+                assertThatNext(
+                    hasNoModel(),
+                    hasEffects(GoToAddScreen as NotesEffect)
                 )
             )
     }

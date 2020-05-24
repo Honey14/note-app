@@ -1,4 +1,6 @@
 package honey.noteapp.listOfNotes
 
-class NotesEffect {
+sealed class NotesEffect {
+
+    object GoToAddScreen : NotesEffect()
 }
