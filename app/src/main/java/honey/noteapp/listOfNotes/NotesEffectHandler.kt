@@ -16,6 +16,7 @@ class NotesEffectHandler(
             override fun accept(effect: NotesEffect) {
                 when (effect) {
                     is GoToAddScreen -> uiActions.navigateToAddNoteScreen()
+                    is GoToDetailScreen -> uiActions.navigateToDetailScreen()
                 }
             }
 
