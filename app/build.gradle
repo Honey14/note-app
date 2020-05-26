@@ -42,4 +42,7 @@ dependencies {
     //mobius
     implementation 'com.spotify.mobius:mobius-android:1.4.0'
     testImplementation 'com.spotify.mobius:mobius-test:1.4.0'
+    // navigation component
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-beta01"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-beta01"
 }
