@@ -12,6 +12,19 @@ class NotesUpdateTest {
     private val defaultModel = NotesModel.create()
 
     @Test
+    fun `when the app is launched, then get the list`(){
+        spec
+            .given(defaultModel)
+            .whenEvent(FetchingList)
+            .then(
+                assertThatNext(
+                    hasNoModel(),
+                    hasEffects(GetList(hasNotes = true) as NotesEffect)
+                )
+            )
+    }
+
+    @Test
     fun `when list of notes is fetched, then user has notes`() {
         val notes = listOf(
             NotesModel("title1", "description1", true),
