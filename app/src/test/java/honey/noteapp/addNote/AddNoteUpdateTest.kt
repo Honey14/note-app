@@ -23,4 +23,18 @@ class AddNoteUpdateTest {
                 )
             )
     }
+
+    @Test
+    fun `when the user changes the description, then UI should be updated`() {
+        val description = "Today was a happy day"
+        UpdateSpec(AddNoteUpdate())
+            .given(model)
+            .whenEvent(DescriptionChanged(description))
+            .then(
+                assertThatNext(
+                    hasModel(model.descriptionChanged(description)),
+                    hasNoEffects()
+                )
+            )
+    }
 }

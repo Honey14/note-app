@@ -11,4 +11,8 @@ data class AddNoteModel(
     fun titleChanged(title: String): AddNoteModel {
         return copy(title = title)
     }
+
+    fun descriptionChanged(description: String): AddNoteModel {
+        return copy(description = description)
+    }
 }
