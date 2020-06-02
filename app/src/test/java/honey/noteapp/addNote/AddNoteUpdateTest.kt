@@ -1,9 +1,9 @@
 package honey.noteapp.addNote
 
-import com.spotify.mobius.test.NextMatchers.hasModel
-import com.spotify.mobius.test.NextMatchers.hasNoEffects
+import com.spotify.mobius.test.NextMatchers.*
 import com.spotify.mobius.test.UpdateSpec
 import com.spotify.mobius.test.UpdateSpec.assertThatNext
+import honey.noteapp.addNote.AddNoteEffect.ValidateInput
 import honey.noteapp.addNote.AddNoteEvent.*
 import org.junit.Test
 
@@ -34,6 +34,28 @@ class AddNoteUpdateTest {
                 assertThatNext(
                     hasModel(model.descriptionChanged(description)),
                     hasNoEffects()
+                )
+            )
+    }
+
+    @Test
+    fun `when the save button is clicked, then validate the input`() {
+        val title = "Title"
+        val description = "Description"
+        val noteModel = model.titleChanged(title).descriptionChanged(description)
+
+        UpdateSpec(AddNoteUpdate())
+            .given(noteModel)
+            .whenEvent(SaveClicked())
+            .then(
+                assertThatNext(
+                    hasNoModel(),
+                    hasEffects(
+                        ValidateInput(
+                            title = noteModel.title,
+                            desc = noteModel.description
+                        ) as AddNoteEffect
+                    )
                 )
             )
     }

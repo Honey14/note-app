@@ -1,4 +1,6 @@
 package honey.noteapp.addNote
 
-class AddNoteEffect {
+sealed class AddNoteEffect {
+
+    data class ValidateInput(val title: String, val desc: String) : AddNoteEffect()
 }
