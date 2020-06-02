@@ -1,4 +1,5 @@
 package honey.noteapp.addNote
 
-class AddNoteEvent {
+sealed class AddNoteEvent {
+    data class TitleChanged(val title: String) : AddNoteEvent()
 }
