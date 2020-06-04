@@ -15,7 +15,7 @@ class AddNoteUpdate : Update<AddNoteModel, AddNoteEvent, AddNoteEffect> {
             is TitleChanged -> next(model.titleChanged(event.title))
             is DescriptionChanged -> next(model.descriptionChanged(event.description))
             is SaveClicked -> dispatch(setOf(ValidateInput(model.title, model.description)))
-
+            is ValidationFailed -> next(model.invalidFields(event.error))
         }
     }
 

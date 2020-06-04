@@ -59,4 +59,18 @@ class AddNoteUpdateTest {
                 )
             )
     }
+
+    @Test
+    fun `when validate input fails, then show error`() {
+        val validationError = "Input Fields Empty"
+        UpdateSpec(AddNoteUpdate())
+            .given(model)
+            .whenEvent(ValidationFailed(validationError))
+            .then(
+                assertThatNext(
+                    hasModel(model.invalidFields(validationError)),
+                    hasNoEffects()
+                )
+            )
+    }
 }
