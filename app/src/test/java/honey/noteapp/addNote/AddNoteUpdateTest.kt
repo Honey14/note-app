@@ -3,8 +3,7 @@ package honey.noteapp.addNote
 import com.spotify.mobius.test.NextMatchers.*
 import com.spotify.mobius.test.UpdateSpec
 import com.spotify.mobius.test.UpdateSpec.assertThatNext
-import honey.noteapp.addNote.AddNoteEffect.SaveNote
-import honey.noteapp.addNote.AddNoteEffect.ValidateInput
+import honey.noteapp.addNote.AddNoteEffect.*
 import honey.noteapp.addNote.AddNoteEvent.*
 import org.junit.Test
 
@@ -87,6 +86,19 @@ class AddNoteUpdateTest {
                             desc = description
                         ) as AddNoteEffect
                     )
+                )
+            )
+    }
+
+    @Test
+    fun `when note the saved, go to Detail screen`(){
+        UpdateSpec(AddNoteUpdate())
+            .given(model)
+            .whenEvent(NoteSaved)
+            .then(
+                assertThatNext(
+                    hasNoModel(),
+                    hasEffects(GoToDetailScreen as AddNoteEffect)
                 )
             )
     }
