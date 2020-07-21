@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -46,4 +47,8 @@ dependencies {
     // navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-beta01"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0-beta01"
+    // room
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+
 }
