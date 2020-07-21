@@ -3,16 +3,17 @@ package honey.noteapp.addNote
 import com.spotify.mobius.Connectable
 import com.spotify.mobius.Connection
 import com.spotify.mobius.functions.Consumer
-import honey.noteapp.addNote.AddNoteEffect.SaveNote
-import honey.noteapp.addNote.AddNoteEffect.ValidateInput
+import honey.noteapp.addNote.AddNoteEffect.*
 import honey.noteapp.addNote.AddNoteEvent.*
 import honey.noteapp.addNote.ValidationErrors.DescriptionBlank
 import honey.noteapp.addNote.ValidationErrors.TitleBlank
 import honey.noteapp.database.NoteDao
 import honey.noteapp.database.SavingNote
+import honey.noteapp.listOfNotes.UiActions
 
 class AddNoteEffectHandler(
-    private val noteDao : NoteDao
+    private val noteDao : NoteDao,
+    private val uiActions: UiActions
 ) : Connectable<AddNoteEffect, AddNoteEvent> {
     override fun connect(output: Consumer<AddNoteEvent>): Connection<AddNoteEffect> {
         return object : Connection<AddNoteEffect> {
@@ -20,6 +21,7 @@ class AddNoteEffectHandler(
                 when (effects) {
                     is ValidateInput -> validateInput(effects, output)
                     is SaveNote -> savingNote(effects,output)
+                    is GoToDetailScreen -> uiActions.navigateToDetailScreen()
                 }
             }
 

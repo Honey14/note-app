@@ -10,7 +10,7 @@ import honey.noteapp.addNote.AddNoteEvent.ValidationFailed
 import honey.noteapp.addNote.ValidationErrors.DescriptionBlank
 import honey.noteapp.addNote.ValidationErrors.TitleBlank
 import honey.noteapp.database.NoteDao
-import honey.noteapp.database.SavingNote
+import honey.noteapp.listOfNotes.UiActions
 import org.junit.After
 import org.junit.Test
 
@@ -77,11 +77,20 @@ class AddNoteEffectHandlerTest {
 
     }
 
+
     private fun setUpConnection(
         noteDao: NoteDao = mock()
     ) {
-        val addNoteEffectHandler = AddNoteEffectHandler(noteDao)
+        val fakeUiActions: UiActions = FakeUiActions()
+        val addNoteEffectHandler = AddNoteEffectHandler(noteDao, fakeUiActions)
         connection = addNoteEffectHandler.connect(receivedEvents)
     }
+}
+
+class FakeUiActions : UiActions {
+    override fun navigateToAddNoteScreen() {}
+
+    override fun navigateToDetailScreen() {}
+
 }
 
