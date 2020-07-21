@@ -50,5 +50,8 @@ dependencies {
     // room
     implementation "androidx.room:room-runtime:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
+    // mockito
+    testImplementation 'com.google.truth:truth:1.0.1'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 
 }
