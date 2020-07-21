@@ -5,6 +5,8 @@ import com.spotify.mobius.test.UpdateSpec
 import com.spotify.mobius.test.UpdateSpec.assertThatNext
 import honey.noteapp.addNote.AddNoteEffect.*
 import honey.noteapp.addNote.AddNoteEvent.*
+import honey.noteapp.addNote.ValidationErrors.DescriptionBlank
+import honey.noteapp.addNote.ValidationErrors.TitleBlank
 import org.junit.Test
 
 class AddNoteUpdateTest {
@@ -60,7 +62,10 @@ class AddNoteUpdateTest {
 
     @Test
     fun `when validate input fails, then show error`() {
-        val validationError = "Input Fields Empty"
+        val model = model
+            .titleChanged("")
+            .descriptionChanged("")
+        val validationError = setOf(TitleBlank, DescriptionBlank)
         UpdateSpec(AddNoteUpdate())
             .given(model)
             .whenEvent(ValidationFailed(validationError))

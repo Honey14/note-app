@@ -3,10 +3,10 @@ package honey.noteapp.addNote
 data class AddNoteModel(
     val title: String,
     val description: String,
-    val error: String
+    val errors: Set<ValidationErrors>
 ) {
     companion object {
-        fun default() = AddNoteModel(title = "", description = "",error = "Something")
+        fun default() = AddNoteModel(title = "", description = "",errors = emptySet())
     }
 
     fun titleChanged(title: String): AddNoteModel {
@@ -17,7 +17,7 @@ data class AddNoteModel(
         return copy(description = description)
     }
 
-    fun invalidFields(error : String) : AddNoteModel{
-        return copy(error = error)
+    fun invalidFields(errors : Set<ValidationErrors>) : AddNoteModel{
+        return copy(errors = errors)
     }
 }
