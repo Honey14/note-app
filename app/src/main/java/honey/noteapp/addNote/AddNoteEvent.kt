@@ -8,4 +8,6 @@ sealed class AddNoteEvent {
     class SaveClicked() : AddNoteEvent()
 
     data class ValidationFailed(val error: String) : AddNoteEvent()
+
+    object ValidationSucceeded : AddNoteEvent()
 }
