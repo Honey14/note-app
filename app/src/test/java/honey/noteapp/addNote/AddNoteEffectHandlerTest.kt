@@ -1,11 +1,16 @@
 package honey.noteapp.addNote
 
+import com.nhaarman.mockitokotlin2.mock
 import com.spotify.mobius.Connection
 import com.spotify.mobius.test.RecordingConsumer
+import honey.noteapp.addNote.AddNoteEffect.SaveNote
 import honey.noteapp.addNote.AddNoteEffect.ValidateInput
+import honey.noteapp.addNote.AddNoteEvent.NoteSaved
 import honey.noteapp.addNote.AddNoteEvent.ValidationFailed
 import honey.noteapp.addNote.ValidationErrors.DescriptionBlank
 import honey.noteapp.addNote.ValidationErrors.TitleBlank
+import honey.noteapp.database.NoteDao
+import honey.noteapp.database.SavingNote
 import org.junit.After
 import org.junit.Test
 
@@ -38,7 +43,7 @@ class AddNoteEffectHandlerTest {
 
 
     @Test
-    fun `when validate input effect is received, validate entered description `(){
+    fun `when validate input effect is received, validate entered description `() {
         //given
         setUpConnection()
 
@@ -54,8 +59,28 @@ class AddNoteEffectHandlerTest {
         receivedEvents.assertValues(ValidationFailed(expectedErrors))
     }
 
-    private fun setUpConnection() {
-        val addNoteEffectHandler = AddNoteEffectHandler()
+    @Test
+    fun `when save note effect is received, save the note in database`() {
+        //given
+        val dao = mock<NoteDao>()
+        setUpConnection(dao)
+
+        //when
+        val title = " hello there"
+        val description = "this is a note"
+        val effect = SaveNote(title = title, desc = description)
+
+        connection.accept(effect)
+
+        //then
+        receivedEvents.assertValues(NoteSaved)
+
+    }
+
+    private fun setUpConnection(
+        noteDao: NoteDao = mock()
+    ) {
+        val addNoteEffectHandler = AddNoteEffectHandler(noteDao)
         connection = addNoteEffectHandler.connect(receivedEvents)
     }
 }
