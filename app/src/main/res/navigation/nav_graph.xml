@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/listOfNotesFragment">
+    app:startDestination="@id/addNoteFragment">
 
     <fragment
         android:id="@+id/listOfNotesFragment"
         android:name="honey.noteapp.ListOfNotesFragment"
         android:label="fragment_list_of_notes"
         tools:layout="@layout/fragment_list_of_notes" />
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="honey.noteapp.addNote.AddNoteFragment"
+        android:label="AddNoteFragment"
+        tools:layout="@layout/fragment_add_note"
+        >
+        <action
+            android:id="@+id/action_addNoteFragment_to_listOfNotesFragment"
+            app:destination="@id/listOfNotesFragment" />
+    </fragment>
 </navigation>
