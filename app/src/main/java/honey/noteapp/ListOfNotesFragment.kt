@@ -1,6 +1,7 @@
 package honey.noteapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,26 @@ import com.spotify.mobius.Mobius
 import com.spotify.mobius.MobiusLoop
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.functions.Consumer
+import honey.noteapp.database.SaveNoteDb
 import honey.noteapp.listOfNotes.*
 
-class ListOfNotesFragment : Fragment(), UiActions {
-    private val effectHandler = NotesEffectHandler(uiActions = this)
+class ListOfNotesFragment : Fragment(), NotesUi, UiActions {
 
-    private val mobiusLoop: MobiusLoop.Builder<NotesModel, NotesEvent, NotesEffect> =
-        Mobius.loop(NotesUpdate(), effectHandler)
+    private val controller: MobiusLoop.Controller<NotesModel, NotesEvent> by lazy {
+        val noteDao = SaveNoteDb.getDatabase(requireActivity().applicationContext).noteDao()
 
-    private val controller: MobiusLoop.Controller<NotesModel, NotesEvent> =
-        MobiusAndroid.controller(mobiusLoop, NotesModel.create())
+        MobiusAndroid.controller(
+            Mobius.loop(
+                NotesUpdate(),
+                NotesEffectHandler(uiActions = this, noteDb = noteDao)
+            ),
+            NotesModel.create()
+        )
+    }
+
+    private val uiRenderer by lazy {
+        NotesUiRenderer(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +48,7 @@ class ListOfNotesFragment : Fragment(), UiActions {
     private fun connectEvents(view: View, events: Consumer<NotesEvent>): Connection<NotesModel> {
         return object : Connection<NotesModel> {
             override fun accept(value: NotesModel) {
-
+                uiRenderer.render(value)
             }
 
             override fun dispose() {
@@ -45,6 +56,15 @@ class ListOfNotesFragment : Fragment(), UiActions {
             }
 
         }
+    }
+
+    override fun showNotes(notes: List<Note>?) {
+        Log.d("noteshere1234", "hasnotes")
+    }
+
+    override fun showNoNotesText() {
+        Log.d("noteshere1234", "NOnotes")
+
     }
 
     override fun navigateToAddNoteScreen() {

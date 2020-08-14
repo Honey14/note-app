@@ -2,11 +2,7 @@ package honey.noteapp.listOfNotes
 
 sealed class NotesEvent
 
-object FetchingList : NotesEvent()
-
-data class HasNotes(val notes: List<NotesModel>) : NotesEvent()
-
-object NoNotes : NotesEvent()
+data class ListFetched(val notes: List<Note>?) : NotesEvent()
 
 object AddClicked : NotesEvent()
 

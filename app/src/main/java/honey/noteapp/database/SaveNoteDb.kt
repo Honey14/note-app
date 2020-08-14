@@ -2,6 +2,7 @@ package honey.noteapp.database
 
 import android.content.Context
 import androidx.room.*
+import honey.noteapp.listOfNotes.Note
 
 @Database(entities = [SavingNote::class], version = 1)
 abstract class SaveNoteDb : RoomDatabase() {
@@ -19,8 +20,9 @@ abstract class SaveNoteDb : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     SaveNoteDb::class.java,
-                    "notes_db"
+                    "notes_database"
                 )
+                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 return instance
@@ -40,4 +42,7 @@ class SavingNote(
 interface NoteDao {
     @Insert
     fun insertNote(note: SavingNote)
+
+    @Query("SELECT * FROM Notes")
+    fun retrieveListOfNotes(): List<Note>
 }

@@ -1,20 +1,19 @@
 package honey.noteapp.listOfNotes
 
 data class NotesModel(
-    val title: String,
-    val description: String,
-    val hasNotes: Boolean
+    val note: Note?,
+    val listOfNotes: List<Note>?
 ) {
 
+    val hasNotes: Boolean
+        get() = listOfNotes != null
+
     companion object {
-        fun create(): NotesModel = NotesModel(title = "", description = "", hasNotes = false)
+        fun create(): NotesModel =
+            NotesModel(note = null, listOfNotes = emptyList())
     }
 
-    fun notesRetrieved(hasNotes: Boolean): NotesModel {
-        return copy(hasNotes = hasNotes)
-    }
-
-    fun noNotesAvailable(hasNotes: Boolean): NotesModel {
-        return copy(hasNotes = hasNotes)
+    fun notesRetrieved(listOfNotes: List<Note>?): NotesModel {
+        return copy(listOfNotes = listOfNotes)
     }
 }

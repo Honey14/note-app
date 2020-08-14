@@ -3,7 +3,8 @@ package honey.noteapp.listOfNotes
 import com.spotify.mobius.test.NextMatchers.*
 import com.spotify.mobius.test.UpdateSpec
 import com.spotify.mobius.test.UpdateSpec.assertThatNext
-import honey.noteapp.listOfNotes.NotesEffect.*
+import honey.noteapp.listOfNotes.NotesEffect.GoToAddScreen
+import honey.noteapp.listOfNotes.NotesEffect.GoToDetailScreen
 import org.junit.Test
 
 class NotesUpdateTest {
@@ -12,44 +13,19 @@ class NotesUpdateTest {
     private val defaultModel = NotesModel.create()
 
     @Test
-    fun `when the app is launched, then get the list`(){
-        spec
-            .given(defaultModel)
-            .whenEvent(FetchingList)
-            .then(
-                assertThatNext(
-                    hasNoModel(),
-                    hasEffects(GetList(hasNotes = true) as NotesEffect)
-                )
-            )
-    }
-
-    @Test
     fun `when list of notes is fetched, then user has notes`() {
         val notes = listOf(
-            NotesModel("title1", "description1", true),
-            NotesModel("title2", "description2", true),
-            NotesModel("title3", "description3", true)
+            Note("title1", "description1"),
+            Note("title2", "description2"),
+            Note("title3", "description3")
         )
         spec
             .given(defaultModel)
-            .whenEvent(HasNotes(notes))
+            .whenEvent(ListFetched(notes))
             .then(
                 assertThatNext(
-                    hasModel(defaultModel.notesRetrieved(hasNotes = true)),
+                    hasModel(defaultModel.notesRetrieved(notes)),
                     hasNoEffects()
-                )
-            )
-    }
-
-    @Test
-    fun `when list of notes is fetched, then user gets no notes`() {
-        spec
-            .given(defaultModel)
-            .whenEvent(NoNotes)
-            .then(
-                assertThatNext(
-                    hasModel(defaultModel.noNotesAvailable(hasNotes = false))
                 )
             )
     }
