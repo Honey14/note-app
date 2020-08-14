@@ -1,12 +1,11 @@
 package honey.noteapp.noteDetail
 
 import com.spotify.mobius.First
-import com.spotify.mobius.First.first
 import com.spotify.mobius.Init
-import honey.noteapp.listOfNotes.Note
+import honey.noteapp.noteDetail.NoteDetailEffect.LoadNoteDetails
 
-class NoteDetailInit : Init<Note, NoteDetailEffect> {
-    override fun init(model: Note): First<Note, NoteDetailEffect> {
-        return first(model)
+class NoteDetailInit : Init<NoteDetailModel, NoteDetailEffect> {
+    override fun init(model: NoteDetailModel): First<NoteDetailModel, NoteDetailEffect> {
+        return First.first(model, setOf(LoadNoteDetails(model.title, model.description)))
     }
 }
