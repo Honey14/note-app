@@ -1,11 +1,12 @@
 package honey.noteapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.spotify.mobius.Connection
 import com.spotify.mobius.Mobius
 import com.spotify.mobius.MobiusLoop
@@ -13,6 +14,7 @@ import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.functions.Consumer
 import honey.noteapp.database.SaveNoteDb
 import honey.noteapp.listOfNotes.*
+import kotlinx.android.synthetic.main.fragment_list_of_notes.*
 
 class ListOfNotesFragment : Fragment(), NotesUi, UiActions {
 
@@ -24,7 +26,8 @@ class ListOfNotesFragment : Fragment(), NotesUi, UiActions {
                 NotesUpdate(),
                 NotesEffectHandler(uiActions = this, noteDb = noteDao)
             ),
-            NotesModel.create()
+            NotesModel.create(),
+            NotesInit()
         )
     }
 
@@ -51,19 +54,20 @@ class ListOfNotesFragment : Fragment(), NotesUi, UiActions {
                 uiRenderer.render(value)
             }
 
-            override fun dispose() {
-
-            }
-
+            override fun dispose() {}
         }
     }
 
-    override fun showNotes(notes: List<Note>?) {
-        Log.d("noteshere1234", "hasnotes")
+    override fun showNotes(notes: List<Note>) {
+        empty_notes.visibility = View.GONE
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recyclerView.adapter = ListItemAdapter(notes)
+
     }
 
     override fun showNoNotesText() {
-        Log.d("noteshere1234", "NOnotes")
+        empty_notes.visibility = View.VISIBLE
 
     }
 
@@ -73,5 +77,20 @@ class ListOfNotesFragment : Fragment(), NotesUi, UiActions {
 
     override fun navigateToDetailScreen() {
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        controller.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        controller.stop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        controller.disconnect()
     }
 }

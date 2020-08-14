@@ -7,4 +7,6 @@
     <string name="title">Title</string>
     <string name="write_your_notes_here">Write your notes here</string>
     <string name="save">Save</string>
+    <string name="note_description">Note Description</string>
+    <string name="note_title">Note title</string>
 </resources>

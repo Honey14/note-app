@@ -6,7 +6,7 @@ data class NotesModel(
 ) {
 
     val hasNotes: Boolean
-        get() = listOfNotes != null
+        get() = listOfNotes != null && listOfNotes.isNotEmpty()
 
     companion object {
         fun create(): NotesModel =
