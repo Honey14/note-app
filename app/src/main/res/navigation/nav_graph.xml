@@ -3,21 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/addNoteFragment">
+    app:startDestination="@id/listOfNotesFragment">
 
     <fragment
         android:id="@+id/listOfNotesFragment"
         android:name="honey.noteapp.ListOfNotesFragment"
         android:label="fragment_list_of_notes"
-        tools:layout="@layout/fragment_list_of_notes" />
+        tools:layout="@layout/fragment_list_of_notes">
+        <action
+            android:id="@+id/action_listOfNotesFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/action_listOfNotesFragment_to_noteDetailFragment"
+            app:destination="@id/noteDetailFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/addNoteFragment"
         android:name="honey.noteapp.addNote.AddNoteFragment"
         android:label="AddNoteFragment"
-        tools:layout="@layout/fragment_add_note"
-        >
-        <action
-            android:id="@+id/action_addNoteFragment_to_listOfNotesFragment"
-            app:destination="@id/listOfNotesFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add_note" />
+    <fragment
+        android:id="@+id/noteDetailFragment"
+        android:name="honey.noteapp.noteDetail.NoteDetailFragment"
+        android:label="fragment_note_detail"
+        tools:layout="@layout/fragment_note_detail" />
 </navigation>

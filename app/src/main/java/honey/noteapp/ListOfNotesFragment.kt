@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.spotify.mobius.Connection
@@ -72,11 +73,11 @@ class ListOfNotesFragment : Fragment(), NotesUi, UiActions {
     }
 
     override fun navigateToAddNoteScreen() {
-
+        findNavController().navigate(R.id.action_listOfNotesFragment_to_addNoteFragment)
     }
 
     override fun navigateToDetailScreen() {
-
+        findNavController().navigate(R.id.action_listOfNotesFragment_to_noteDetailFragment)
     }
 
     override fun onStart() {

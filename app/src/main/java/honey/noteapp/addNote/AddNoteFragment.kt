@@ -108,7 +108,6 @@ class AddNoteFragment : Fragment(), UiActions {
     }
 
     override fun navigateToDetailScreen() {
-        findNavController().navigate(R.id.action_addNoteFragment_to_listOfNotesFragment)
     }
 
     override fun onResume() {
